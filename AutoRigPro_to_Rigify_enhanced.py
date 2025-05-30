@@ -100,13 +100,14 @@ face_bones = [
     "jaw",          # Main jaw bone
     "jaw.L",        # Left jaw helper
     "jaw.R",        # Right jaw helper
-    "jaw.R.001",    # Right jaw additional (keep if needed)
-    "+ jaw.L.001",  # Missing left counterpart
+    "jaw.R.001",    # Right jaw additional
+    "jaw.L.001",    # Left jaw additional (now added)
     
     # Chin
     "chin",         # Main chin bone
+    "chin.001",     # Additional chin bone (new)
     "chin.R",       # Right chin helper
-    "+ chin.L",     # Missing left chin helper
+    "chin.L",       # Left chin helper (now added)
     
     # Cheeks
     "cheek.T.L",    # Top-left cheek
@@ -115,8 +116,8 @@ face_bones = [
     "cheek.T.R.001",
     "cheek.B.R",    # Bottom-right cheek
     "cheek.B.R.001",
-    "+ cheek.B.L",  # Missing bottom-left cheek
-    "+ cheek.B.L.001",
+    "cheek.B.L",    # Bottom-left cheek (now added)
+    "cheek.B.L.001", # Bottom-left cheek additional (new)
     
     # Nose
     "nose",         # Main nose bone
@@ -124,7 +125,7 @@ face_bones = [
     "nose.L.001",
     "nose.R",       # Right nostril/nose helper
     "nose.R.001",
-    "nose.001",     # Additional nose bones (if needed for rigging)
+    "nose.001",     # Additional nose bones
     "nose.002",
     "nose.003",
     "nose.004",
@@ -149,6 +150,7 @@ face_bones = [
     "lid.B.L",      # Bottom-left eyelid
     "lid.B.L.001",
     "lid.B.L.002",
+    "lid.B.L.003",  # New (extends symmetry)
     "lid.T.R",      # Top-right eyelid
     "lid.T.R.001",
     "lid.T.R.002",
@@ -156,6 +158,7 @@ face_bones = [
     "lid.B.R",      # Bottom-right eyelid
     "lid.B.R.001",
     "lid.B.R.002",
+    "lid.B.R.003",  # New (corrects typo "id.B.R.003")
     
     # Brows
     "brow.B.L",     # Bottom-left brow
@@ -165,22 +168,27 @@ face_bones = [
     "brow.B.R",     # Bottom-right brow
     "brow.B.R.001",
     "brow.B.R.002",
-    "brow.T.R",     # Top-right brow (corrected asymmetry)
+    "brow.B.R.003", # New (matches left side)
+    "brow.T.R",     # Top-right brow
     "brow.T.R.001",
     "brow.T.R.002",
-    "+ brow.T.L",   # Missing top-left brow
-    "+ brow.T.L.001",
-    "+ brow.T.L.002",
+    "brow.T.R.003", # New (extends hierarchy)
+    "brow.T.L",     # Top-left brow (new)
+    "brow.T.L.001", # New
+    "brow.T.L.002", # New
+    "brow.T.L.003", # New (extends hierarchy)
     
     # Ears
     "ear.L",        # Left ear root
     "ear.L.001",
     "ear.L.002",
     "ear.L.003",
+    "ear.L.004",    # New (extends chain)
     "ear.R",        # Right ear root
     "ear.R.001",
     "ear.R.002",
     "ear.R.003",
+    "ear.R.004",    # New (matches left)
     
     # Forehead/Temples
     "forehead.L",
@@ -196,7 +204,8 @@ face_bones = [
     "teeth.T",      # Upper teeth
     "teeth.B",      # Lower teeth
     "tongue",       # Tongue root
-    "tongue.001",   # Tongue tip
+    "tongue.001",   # Tongue mid
+    "tongue.002",   # New (tongue tip)
 ]
 
 # Property group to store rig selections and settings
