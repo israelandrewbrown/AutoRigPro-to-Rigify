@@ -95,31 +95,108 @@ bone_mapping = {
 
 # Face bones that can be deleted
 face_bones = [
+    # Core Head/Face
     "face",
-    "nose", "nose.001", "nose.002", "nose.003", "nose.004",
-    "lip.T.L", "lip.T.L.001", "lip.B.L", "lip.B.L.001",
-    "jaw", "chin",
-    "ear.L", "ear.L.001", "ear.L.002", "ear.L.003",
-    "ear.R", "ear.R.001", "ear.R.002", "ear.R.003",
-    "lip.T.R", "lip.T.R.001", "lip.B.R", "lip.B.R.001",
-    "brow.B.L", "brow.B.L.001", "brow.B.L.002", "brow.B.L.003",
-    "lid.T.L", "lid.T.L.001", "lid.T.L.002", "lid.T.L.003",
-    "lid.B.L", "lid.B.L.001", "lid.B.L.002",
-    "brow.B.R", "brow.B.R.001", "brow.B.R.002",
-    "lid.T.R", "lid.T.R.001", "lid.T.R.002", "lid.T.R.003",
-    "lid.B.R", "lid.B.R.001", "lid.B.R.002",
-    "forehead.L", "forehead.L.001", "forehead.L.002",
-    "temple.L", "jaw.L",
-    "forehead.R", "forehead.R.001", "forehead.R.002",
-    "temple.R", "jaw.R", "jaw.R.001",
-    "chin.R", "cheek.B.R", "cheek.B.R.001",
-    "brow.T.R", "brow.T.R.001", "brow.T.R.002",
-    "eye.L", "eye.R",
-    "cheek.T.L", "cheek.T.L.001",
-    "nose.L", "cheek.T.R", "nose.L.001",
-    "cheek.T.R.001", "nose.R",
-    "teeth.T", "teeth.B", "tongue",
-    "nose.R.001", "tongue.001"
+    "jaw",          # Main jaw bone
+    "jaw.L",        # Left jaw helper
+    "jaw.R",        # Right jaw helper
+    "jaw.R.001",    # Right jaw additional (keep if needed)
+    "+ jaw.L.001",  # Missing left counterpart
+    
+    # Chin
+    "chin",         # Main chin bone
+    "chin.R",       # Right chin helper
+    "+ chin.L",     # Missing left chin helper
+    
+    # Cheeks
+    "cheek.T.L",    # Top-left cheek
+    "cheek.T.L.001",
+    "cheek.T.R",    # Top-right cheek
+    "cheek.T.R.001",
+    "cheek.B.R",    # Bottom-right cheek
+    "cheek.B.R.001",
+    "+ cheek.B.L",  # Missing bottom-left cheek
+    "+ cheek.B.L.001",
+    
+    # Nose
+    "nose",         # Main nose bone
+    "nose.L",       # Left nostril/nose helper
+    "nose.L.001",
+    "nose.R",       # Right nostril/nose helper
+    "nose.R.001",
+    "nose.001",     # Additional nose bones (if needed for rigging)
+    "nose.002",
+    "nose.003",
+    "nose.004",
+    
+    # Lips
+    "lip.T.L",      # Top-left lip
+    "lip.T.L.001",
+    "lip.B.L",      # Bottom-left lip
+    "lip.B.L.001",
+    "lip.T.R",      # Top-right lip
+    "lip.T.R.001",
+    "lip.B.R",      # Bottom-right lip
+    "lip.B.R.001",
+    
+    # Eyes
+    "eye.L",        # Left eye (controller)
+    "eye.R",        # Right eye (controller)
+    "lid.T.L",      # Top-left eyelid
+    "lid.T.L.001",
+    "lid.T.L.002",
+    "lid.T.L.003",
+    "lid.B.L",      # Bottom-left eyelid
+    "lid.B.L.001",
+    "lid.B.L.002",
+    "lid.T.R",      # Top-right eyelid
+    "lid.T.R.001",
+    "lid.T.R.002",
+    "lid.T.R.003",
+    "lid.B.R",      # Bottom-right eyelid
+    "lid.B.R.001",
+    "lid.B.R.002",
+    
+    # Brows
+    "brow.B.L",     # Bottom-left brow
+    "brow.B.L.001",
+    "brow.B.L.002",
+    "brow.B.L.003",
+    "brow.B.R",     # Bottom-right brow
+    "brow.B.R.001",
+    "brow.B.R.002",
+    "brow.T.R",     # Top-right brow (corrected asymmetry)
+    "brow.T.R.001",
+    "brow.T.R.002",
+    "+ brow.T.L",   # Missing top-left brow
+    "+ brow.T.L.001",
+    "+ brow.T.L.002",
+    
+    # Ears
+    "ear.L",        # Left ear root
+    "ear.L.001",
+    "ear.L.002",
+    "ear.L.003",
+    "ear.R",        # Right ear root
+    "ear.R.001",
+    "ear.R.002",
+    "ear.R.003",
+    
+    # Forehead/Temples
+    "forehead.L",
+    "forehead.L.001",
+    "forehead.L.002",
+    "forehead.R",
+    "forehead.R.001",
+    "forehead.R.002",
+    "temple.L",
+    "temple.R",
+    
+    # Teeth/Tongue
+    "teeth.T",      # Upper teeth
+    "teeth.B",      # Lower teeth
+    "tongue",       # Tongue root
+    "tongue.001",   # Tongue tip
 ]
 
 # Property group to store rig selections and settings
