@@ -1,21 +1,18 @@
-'''
-Copyright (C) 2025 Israel Andrew Brown
-
-Created by Israel Andrew Brown
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-'''
+#    Copyright (C) 2025 Israel Andrew Brown
+#    Created by Israel Andrew Brown
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+#
+#    See the GNU General Public License for more details.
+#    You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import bpy
 from bpy.types import Operator, Panel, PropertyGroup, UIList
@@ -25,11 +22,15 @@ import mathutils
 # Addon Info
 bl_info = {
     "name": "AutoRigPro-To-Rigify",
-    "blender": (4,0),
+    "blender": (4, 0, 0),
     "category": "Rigging",
-    "version": (2,1), # Updated version
+    "version": (2, 1, 0),
     "author": "Israel-Andrew-Brown_Jamaica",
     "description": "To Make Rigify Rig Bones Align With AutoRigPro. Includes multi-mesh parenting.",
+    "location": "View3D > Sidebar > Tool Tab",
+    "warning": "",
+    "doc_url": "",
+    "tracker_url": "",
 }
 
 # Bone mapping dictionary: Rigify bone → Auto-Rig Pro bone
@@ -282,9 +283,11 @@ class OBJECT_OT_AlignBones(Operator):
         bpy.ops.object.mode_set(mode='EDIT')
         
         for rigify_bone_name, auto_rig_bone_name in bone_mapping.items():
-            if not auto_rig_bone_name: continue
+            if not auto_rig_bone_name: 
+                continue
             auto_edit_bone = auto_rig.data.edit_bones.get(auto_rig_bone_name)
-            if not auto_edit_bone: continue
+            if not auto_edit_bone: 
+                continue
             
             head_world = auto_rig.matrix_world @ auto_edit_bone.head
             tail_world = auto_rig.matrix_world @ auto_edit_bone.tail
@@ -429,8 +432,7 @@ class MESH_OT_RemoveSelectedFromParentList(Operator):
         if props.active_mesh_index >= len(props.meshes_to_parent) and len(props.meshes_to_parent) > 0:
             props.active_mesh_index = len(props.meshes_to_parent) - 1
         elif not props.meshes_to_parent:
-             props.active_mesh_index = 0
-
+            props.active_mesh_index = 0
 
         self.report({'INFO'}, f"Removed '{removed_mesh_name}' from the list")
         return {'FINISHED'}
@@ -451,7 +453,6 @@ class MESH_OT_ClearParentList(Operator):
         props.active_mesh_index = 0
         self.report({'INFO'}, f"Cleared {count} mesh(es) from the list")
         return {'FINISHED'}
-
 
 # Operator to parent mesh to rig with automatic weights
 class OBJECT_OT_ParentWithWeights(Operator):
@@ -486,17 +487,17 @@ class OBJECT_OT_ParentWithWeights(Operator):
             mesh_obj = item.obj
             if not mesh_obj:
                 self.report({'WARNING'}, f"Skipping an empty item in the mesh list.")
-                failed_count +=1
+                failed_count += 1
                 continue
             
             if mesh_obj.name not in context.scene.objects:
                 self.report({'WARNING'}, f"Mesh '{mesh_obj.name}' not found in scene. Skipping.")
-                failed_count +=1
+                failed_count += 1
                 continue
 
             if mesh_obj.type != 'MESH':
                 self.report({'WARNING'}, f"Object '{mesh_obj.name}' is not a mesh. Skipping.")
-                failed_count +=1
+                failed_count += 1
                 continue
             
             # Deselect all objects
@@ -510,27 +511,26 @@ class OBJECT_OT_ParentWithWeights(Operator):
             try:
                 bpy.ops.object.parent_set(type='ARMATURE_AUTO')
                 self.report({'INFO'}, f"Mesh '{mesh_obj.name}' parented to rig '{rig_obj.name}' with automatic weights")
-                parented_count +=1
+                parented_count += 1
             except Exception as e:
                 self.report({'ERROR'}, f"Failed to parent '{mesh_obj.name}': {str(e)}")
-                failed_count +=1
+                failed_count += 1
         
         if parented_count > 0:
-             self.report({'INFO'}, f"Successfully parented {parented_count} mesh(es).")
+            self.report({'INFO'}, f"Successfully parented {parented_count} mesh(es).")
         if failed_count > 0:
             self.report({'WARNING'}, f"Failed to parent or skipped {failed_count} mesh(es). Check console for details.")
-        if parented_count == 0 and failed_count == 0 : # Should not happen if list is not empty
-             self.report({'WARNING'}, "No meshes were processed.")
+        if parented_count == 0 and failed_count == 0:  # Should not happen if list is not empty
+            self.report({'WARNING'}, "No meshes were processed.")
 
         # Clear selection after operation
         bpy.ops.object.select_all(action='DESELECT')
-        if rig_obj: # Attempt to re-select the rig controls if it exists
+        if rig_obj:  # Attempt to re-select the rig controls if it exists
             try:
                 rig_obj.select_set(True)
                 context.view_layer.objects.active = rig_obj
-            except ReferenceError: # rig_obj might have been deleted or is invalid
+            except ReferenceError:  # rig_obj might have been deleted or is invalid
                 pass
-
 
         return {'FINISHED'}
 
@@ -548,13 +548,12 @@ class MESH_UL_MeshParentList(UIList):
             layout.alignment = 'CENTER'
             layout.label(text="", icon_value=icon)
 
-
 # Panel in the 3D View N-panel
 class VIEW3D_PT_AutoRigToRigify(Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'Tool' # Changed from 'AutoRig To Rigify' to 'Tool' and set label
-    bl_label = 'ARP to Rigify' # Shorter label for the tab
+    bl_category = 'Tool'  # Changed from 'AutoRig To Rigify' to 'Tool' and set label
+    bl_label = 'ARP to Rigify'  # Shorter label for the tab
 
     def draw(self, context):
         layout = self.layout
@@ -577,52 +576,39 @@ class VIEW3D_PT_AutoRigToRigify(Panel):
         box.prop(props, "keep_face_bones")
         box.operator("object.handle_face_bones", text="Process Face Bones", icon='CHECKMARK')
 
-        # Shelf Four: Align pelvis bones
+        # Shelf Four: Alignment operations
         box = layout.box()
-        box.label(text="4. Align Metarig", icon='CON_LOCLIKE')
-        box.operator("object.align_rigs", text="Align Rigs (Object Mode)", icon='SNAP_ON')
-        box.operator("object.align_bones", text="Align Bones (Edit Mode)", icon='BONE_DATA')
-        # box.label(text="Don't forget to save! (Ctrl+S)", icon='FILE_TICK') # Optional reminder
+        box.label(text="4. Alignment", icon='SNAP_ON')
+        box.operator("object.align_rigs", text="Align Rigs", icon='SNAP_FACE')
+        box.operator("object.align_bones", text="Align Bones", icon='BONE_DATA')
+        box.operator("object.apply_transforms", text="Apply Transforms", icon='CHECKMARK')
 
-        # Shelf Five: Apply transforms
+        # Shelf Five: Generate rig
         box = layout.box()
-        box.label(text="5. Apply Transforms", icon='OBJECT_ORIGIN')
-        box.operator("object.apply_transforms", text="Apply All Transforms", icon='CHECKMARK')
+        box.label(text="5. Generate Rig", icon='MODIFIER_ON')
+        box.operator("object.generate_rig", text="Generate Rigify Rig", icon='ARMATURE_DATA')
 
-        # Shelf Six: Generate rig
+        # Shelf Six: Mesh parenting
         box = layout.box()
-        box.label(text="6. Generate Final Rig", icon='ARMATURE_DATA')
-        box.operator("object.generate_rig", text="Generate Rig", icon='PLAY')
-
-        # Shelf Seven: Parent mesh to rig
-        box = layout.box()
-        box.label(text="7. Parent Meshes to Rig", icon='CONSTRAINT_BONE')
-        
-        # Rig Controls selector
+        box.label(text="6. Mesh Parenting", icon='MESH_DATA')
         box.prop(props, "rig_controls", icon='OUTLINER_OB_ARMATURE')
         
+        # Mesh list UI
         row = box.row()
-        row.label(text="Meshes to Parent:")
-
-        # UI List for meshes
-        row = box.row()
-        row.template_list("MESH_UL_MeshParentList", "", props, "meshes_to_parent", props, "active_mesh_index", rows=3)
+        row.template_list("MESH_UL_MeshParentList", "", props, "meshes_to_parent", props, "active_mesh_index")
         
-        # Buttons for list management
+        # List management buttons
         col = row.column(align=True)
-        col.operator(MESH_OT_AddSelectedToParentList.bl_idname, icon='ADD', text="")
-        col.operator(MESH_OT_RemoveSelectedFromParentList.bl_idname, icon='REMOVE', text="")
-        col.separator()
-        col.operator(MESH_OT_ClearParentList.bl_idname, icon='TRASH', text="")
+        col.operator("mesh.add_selected_to_parent_list", text="", icon='ADD')
+        col.operator("mesh.remove_selected_from_parent_list", text="", icon='REMOVE')
+        col.operator("mesh.clear_parent_list", text="", icon='TRASH')
         
-        # Operator to parent all meshes in the list
-        box.operator(OBJECT_OT_ParentWithWeights.bl_idname, text="Parent Meshes w/ Auto Weights", icon='LINKED')
-        box.label(text="Ensure rig is generated & controls selected.", icon='INFO')
+        # Parent operation
+        box.operator("object.parent_with_weights", text="Parent Meshes", icon='CONSTRAINT_BONE')
 
-
-# Register classes
-classes = (
-    MeshObjectItem, # New
+# Registration
+classes = [
+    MeshObjectItem,
     RigSelectionProperties,
     OBJECT_OT_AddMetarig,
     OBJECT_OT_HandleFaceBones,
@@ -630,13 +616,13 @@ classes = (
     OBJECT_OT_AlignBones,
     OBJECT_OT_ApplyTransforms,
     OBJECT_OT_GenerateRig,
-    MESH_OT_AddSelectedToParentList, # New
-    MESH_OT_RemoveSelectedFromParentList, # New
-    MESH_OT_ClearParentList, # New
+    MESH_OT_AddSelectedToParentList,
+    MESH_OT_RemoveSelectedFromParentList,
+    MESH_OT_ClearParentList,
     OBJECT_OT_ParentWithWeights,
-    MESH_UL_MeshParentList, # New
+    MESH_UL_MeshParentList,
     VIEW3D_PT_AutoRigToRigify,
-)
+]
 
 def register():
     for cls in classes:
