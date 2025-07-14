@@ -1,6 +1,24 @@
 # AutoRigPro-to-Rigify
 This Blender addon automatically aligns a Rigify metarig to your Auto-Rig Pro (ARP) reference bones. Use ARP’s quick marker placement, then switch to Rigify for final rig generation. It’s the best of both worlds—fast setup with your preferred rig system!
 
+Requirements:
+AutoRigPro (https://superhivemarket.com/products/auto-rig-pro).
+
+Recommendation (Optional):
+Faceit (https://superhivemarket.com/products/faceit).
+
+Installation:
+Menu > Edit > Preferences > Install > (select .zip folder) >  N-panel > Tools
+
+Usage:
+Use this addon BEFORE AutoRigPro "skinning" and "binded" process. 
+
+Disclaimer:
+This addon will NOT convert "AutoRigPro" face bones to Rigify. This addon will ONLY converts "AutoRigPro" body bones to Rigify-MetaRig.
+
+Enjoy!
+Updates coming soon!
+
 # AutoRig-To-Rigify Pro Documentation
 
 ## Table of Contents
